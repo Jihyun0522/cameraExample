@@ -20,12 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
     private final int MY_PERMISSIONS_REQUEST_RECORD_AUDIO = 2;
+    private final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 3;
+    private final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 4;
 
     SurfaceView surfaceView;
     SurfaceHolder holder;
     MediaRecorder recorder;
 
-    String path = "/sdcard/recorded_video.mp4";
+    String path = "/sdcard/DCIM/Camera/recorded_video.mp4";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
 
         int permssionCamera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int permssionRecord = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
+        int permssionRead = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permssionWrite = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        if(permssionCamera != PackageManager.PERMISSION_GRANTED) {
+        if((permssionCamera != PackageManager.PERMISSION_GRANTED)) {
             Toast.makeText(this, "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show();
 
             if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
@@ -79,6 +83,32 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case MY_PERMISSIONS_REQUEST_RECORD_AUDIO: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this,"승인이 허가되어 있습니다.",Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this,"아직 승인받지 않았습니다.",Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this,"승인이 허가되어 있습니다.",Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this,"아직 승인받지 않았습니다.",Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
