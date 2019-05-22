@@ -61,6 +61,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        if((permssionRead != PackageManager.PERMISSION_GRANTED)) {
+            Toast.makeText(this, "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show();
+
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "면접을 녹화하기 위해 카메라 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                Toast.makeText(this, "면접을 녹화하기 위해 카메라 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if(permssionWrite != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "권한 승인이 필요합니다.", Toast.LENGTH_LONG).show();
+
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "면접을 녹화하기 위해 오디오 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                Toast.makeText(this, "면접을 녹화하기 위해 오디오 권한이 필요합니다.", Toast.LENGTH_LONG).show();
+            }
+        }
+
         surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
 
         holder = surfaceView.getHolder();
